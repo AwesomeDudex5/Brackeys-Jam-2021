@@ -19,7 +19,11 @@ MonoBehaviour:
     width: 1536
     height: 780.8
   m_ShowMode: 4
+<<<<<<< HEAD
   m_Title: Inspector
+=======
+  m_Title: Scene
+>>>>>>> main
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -386,9 +390,15 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
+<<<<<<< HEAD
     m_Target: {x: -0.91194105, y: -2.3884363, z: 8.157292}
     speed: 2
     m_Value: {x: -0.91194105, y: -2.3884363, z: 8.157292}
+=======
+    m_Target: {x: -1.2894511, y: 3.7861085, z: -1.3608277}
+    speed: 2
+    m_Value: {x: -1.2894511, y: 3.7861085, z: -1.3608277}
+>>>>>>> main
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -439,9 +449,15 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -0.3185514, y: 0.26037157, z: -0.09146197, w: -0.90684426}
   m_Size:
+<<<<<<< HEAD
     m_Target: 21.659472
     speed: 2
     m_Value: 21.659472
+=======
+    m_Target: 18.379324
+    speed: 2
+    m_Value: 16.861765
+>>>>>>> main
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -614,9 +630,15 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
+<<<<<<< HEAD
       m_SelectedIDs: 62deffff
       m_LastClickedID: -8606
       m_ExpandedIDs: 62deffff70f6ffff66faffff4afbffff
+=======
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 56faffff4afbffff
+>>>>>>> main
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -678,7 +700,12 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
+<<<<<<< HEAD
     m_Folders: []
+=======
+    m_Folders:
+    - Assets/Scenes
+>>>>>>> main
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 0
@@ -693,7 +720,11 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: c8210000
     m_LastClickedID: 8648
+<<<<<<< HEAD
     m_ExpandedIDs: 0000000036410000384100003a410000
+=======
+    m_ExpandedIDs: 000000003641000038410000
+>>>>>>> main
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -721,21 +752,25 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
+<<<<<<< HEAD
     m_ExpandedIDs: f4f0ffff06f6ffffffffffff00000000364100003a410000664100006a4100009c410000
+=======
+    m_ExpandedIDs: ffffffff00000000364100003841000064410000
+>>>>>>> main
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: SampleSceneSettings
+      m_OriginalName: SampleSceneSettings
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 16632
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 9}
     m_SearchString: 
