@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (rotateTowardMouse)
         {
-            RotateFromMouseVector();
+           RotateFromMouseVector();
         }
 
     }
@@ -76,7 +76,15 @@ public class PlayerMovement : MonoBehaviour
         {
             var target = hitInfo.point;
             target.y = transform.position.y;
+
             transform.LookAt(target);
+
+           /* var lookPos = target - transform.position;
+            lookPos.y =transform.position.y;
+            var rotation = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+            */
+
         }
     }
 
