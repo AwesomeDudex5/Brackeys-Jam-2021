@@ -217,6 +217,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!95 &378803504 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2330267410722341779, guid: e6fd12fc8fccacf408c213c7e6dddfd0,
+    type: 3}
+  m_PrefabInstance: {fileID: 253510685854977294}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &435262880 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 124426386090352254, guid: e6fd12fc8fccacf408c213c7e6dddfd0,
@@ -237,6 +243,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 0
   y: 0
+  causeSpell: 0
+  causeSpell2: 0
+  causeSpell3: 0
+  causeHit: 0
+  causeDeath: 0
+  controller: {fileID: 378803504}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
