@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 750382311}
   - component: {fileID: 750382313}
   - component: {fileID: 750382310}
+  - component: {fileID: 750382313}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -273,19 +274,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream
 --- !u!65 &750382313
 BoxCollider:
+=======
+--- !u!114 &750382313
+MonoBehaviour:
+>>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 750382309}
+<<<<<<< Updated upstream
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.7, y: 1.7, z: 1.7}
   m_Center: {x: 0, y: 0, z: 0}
+=======
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c921832a606e7564bb6b96c147e07da3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testSpellprefab: {fileID: 4674767245075319423, guid: 80395ab442c7e5b4f84a5ba0a6368cc8,
+    type: 3}
+>>>>>>> Stashed changes
 --- !u!1 &1317740806
 GameObject:
   m_ObjectHideFlags: 0
