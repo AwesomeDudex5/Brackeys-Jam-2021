@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 public class Spell
 {
     public GameObject spellPrefab;
@@ -13,12 +9,6 @@ public class Spell
     public float currentCooldown;
 
     public Spell(GameObject _spellPrefab, float _cooldownTime)
-<<<<<<< Updated upstream
-    {
-        spellPrefab = _spellPrefab;
-        cooldownTime = _cooldownTime;
-        currentCooldown = _cooldownTime;
-=======
     {
         spellPrefab = _spellPrefab;
         cooldownTime = _cooldownTime;
@@ -29,12 +19,11 @@ public class Spell
     {
         if (currentCooldown <= 0) return true;
         else return false;
-     }
+    }
     // Cooldown Code would go here
     public void cooldownStart()
     {
 
->>>>>>> Stashed changes
     }
 }
 
