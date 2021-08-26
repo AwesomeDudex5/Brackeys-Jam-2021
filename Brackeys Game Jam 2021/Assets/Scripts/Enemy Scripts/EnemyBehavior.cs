@@ -31,10 +31,12 @@ public class EnemyBehavior : MonoBehaviour
     [Header("Status Effect State")]
     public EnemyStatus status;
     [SerializeField] private float burnDuration;
+    [SerializeField] private float burnRange;
     [SerializeField] private float staggeredDuration;
     [SerializeField] private float frozenDuration;
     [SerializeField] private float poisonDuration;
     [SerializeField] private float wetDuration;
+    public GameObject[] animalTransformations;
 
 
     // Start is called before the first frame update
@@ -42,6 +44,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GameObject.FindObjectOfType<NavMeshAgent>();
+        movementSpeed = agent.speed;
         StartCoroutine(walkToSpawnPoint(spawnWalkPoint));
 
 
@@ -118,6 +121,102 @@ public class EnemyBehavior : MonoBehaviour
 
         isHunting = true;
         isAttacking = false;
+    }
+
+    public void setStatus(EnemyStatus infliction)
+    {
+        isHunting = false;
+        status = infliction;
+        partStatus(status);
+    }
+
+    public void resetStatus()
+    {
+        isHunting = true;
+        agent.speed = movementSpeed;
+        status = EnemyStatus.none;
+    }
+
+    void partStatus(EnemyStatus infliction)
+    {
+        switch (infliction)
+        {
+            case EnemyStatus.burn: StartCoroutine(burning());
+                break;
+            case EnemyStatus.frozen: StartCoroutine(freezing());
+                break;
+            case EnemyStatus.poison: StartCoroutine(poisoning());
+                break;
+            case EnemyStatus.staggered: StartCoroutine(staggering());
+                break;
+            case EnemyStatus.transformed: //do stuff
+                break;
+            case EnemyStatus.wet: //do stuff
+                break;
+            default:
+                Debug.Log("No Status Applied");
+                break;
+        }
+    }
+
+   IEnumerator burning()
+    {
+        int timer = 0;
+        agent.speed *= 1.5f;
+        while(timer < burnDuration)
+        {
+            health--;
+            timer++;
+            agent.SetDestination(new Vector3(Random.Range(-burnRange, burnRange), this.transform.position.y, Random.Range(-burnRange, burnRange)));
+            yield return new WaitForSeconds(1f);
+        }
+        resetStatus();
+    }
+
+    IEnumerator freezing()
+    {
+        int timer = 0;
+        agent.speed = 0;
+        while(timer < frozenDuration)
+        {
+            timer++;
+            yield return new WaitForSeconds(1f);
+        }
+        resetStatus();
+    }
+
+    IEnumerator poisoning()
+    {
+        int timer = 0;
+        agent.speed *= 0.5f;
+        while (timer < poisonDuration)
+        {
+            health--;
+            timer++;
+            chasePlayer(playerTransform);
+            yield return new WaitForSeconds(1f);
+        }
+        resetStatus();
+    }
+
+    IEnumerator staggering()
+    {
+        int timer = 0;
+        agent.speed = 0;
+        while (timer < staggeredDuration)
+        {
+            timer++;
+            //add code for enemy to be pushed back, prolly something with rigidbodies
+            yield return new WaitForSeconds(1f);
+        }
+        resetStatus();
+    }
+
+    void animalTransform()
+    {
+        int randIndex = Random.Range(0, animalTransformations.Length);
+        Instantiate(animalTransformations[randIndex], this.transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
     }
 
 }

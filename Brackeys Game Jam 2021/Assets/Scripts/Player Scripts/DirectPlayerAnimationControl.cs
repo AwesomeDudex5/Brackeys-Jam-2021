@@ -12,12 +12,12 @@ public class DirectPlayerAnimationControl : MonoBehaviour
     public float x;
     public float y;
 
-    private Animator controller;
+    public Animator controller;
 
     // Start is called before the first frame update
     void Start()
     {
-        controller = transform.GetChild(0).GetComponent<Animator>();
+        //controller = transform.GetChild(0).GetComponent<Animator>();
     }
 
     // Update is called once per frame

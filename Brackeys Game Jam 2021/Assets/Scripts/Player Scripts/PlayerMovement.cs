@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
+    public Animator anim;
+
     Vector2 InputVector;
     Vector3 MousePosition;
 
@@ -40,6 +42,15 @@ public class PlayerMovement : MonoBehaviour
         InputVector.y = Input.GetAxisRaw("Vertical");
 
         MousePosition = Input.mousePosition;
+
+        if (InputVector.x > 0 || InputVector.y > 0)
+        {
+            anim.SetFloat("speed", 1);
+        }
+        else
+        {
+            anim.SetFloat("speed", 0);
+        }
 
     }
 

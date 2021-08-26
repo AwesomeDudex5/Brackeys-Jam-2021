@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField] private int health;
+    [SerializeField] private int maxHealth;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameManager.current.onFoodPickedUp += healPlayer;
     }
 
     public void takeDamage(int amount)
@@ -23,7 +24,14 @@ public class PlayerStats : MonoBehaviour
 
     void destroyPlayer()
     {
-        Debug.Log("Player Dead");
-        Destroy(this);
+        Debug.Log("Player Dead lol");
+        Destroy(this.gameObject);
+    }
+
+    void healPlayer(int healAmount)
+    {
+        health += healAmount;
+        if (health > maxHealth)
+            health = maxHealth;
     }
 }
