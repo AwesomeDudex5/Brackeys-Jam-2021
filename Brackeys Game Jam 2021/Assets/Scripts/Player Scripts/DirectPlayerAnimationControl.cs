@@ -39,18 +39,23 @@ public class DirectPlayerAnimationControl : MonoBehaviour
 
         if (causeSpell) {
             controller.SetTrigger(SPELL_LABEL);
+            causeSpell = false;
         }
         if (causeSpell2) {
             controller.SetTrigger(SPELL2_LABEL);
+            causeSpell2 = false;
         }
         if (causeSpell3) {
             controller.SetTrigger(SPELL3_LABEL);
+            causeSpell3 = false;
         }
         if (causeHit) {
             controller.SetTrigger(HIT_LABEL);
+            causeHit = false;
         }
         if (causeDeath) {
-            controller.SetBool(DEATH_LABEL, true);
+            controller.SetTrigger(DEATH_LABEL);
+            causeDeath = false;
         }
     }
 }
