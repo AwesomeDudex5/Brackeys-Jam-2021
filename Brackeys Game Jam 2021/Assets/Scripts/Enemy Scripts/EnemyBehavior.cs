@@ -45,7 +45,9 @@ public class EnemyBehavior : MonoBehaviour
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GameObject.FindObjectOfType<NavMeshAgent>();
         movementSpeed = agent.speed;
+      //  GameManager.current.EnemySpawned();
         StartCoroutine(walkToSpawnPoint(spawnWalkPoint));
+        StartCoroutine(dieOnTimer(3.5f));
 
 
     }
@@ -67,6 +69,14 @@ public class EnemyBehavior : MonoBehaviour
                 }
             }
         }
+    }
+
+    //for testing------------
+    IEnumerator dieOnTimer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        GameManager.current.EnemyKilled();
+        Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -121,6 +131,18 @@ public class EnemyBehavior : MonoBehaviour
 
         isHunting = true;
         isAttacking = false;
+    }
+
+    public void takeDamage(int amount)
+    {
+        health = health - amount;
+
+        if(health <= 0 )
+        {
+            //play death animations for grunts
+            GameManager.current.EnemyKilled();
+            Destroy(this.gameObject);
+        }
     }
 
     public void setStatus(EnemyStatus infliction)

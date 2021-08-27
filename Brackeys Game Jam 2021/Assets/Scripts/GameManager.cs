@@ -36,6 +36,13 @@ public class GameManager : MonoBehaviour
             onEnemyKilled();
     }
 
+    public Action onEnemySpawned;
+    public void EnemySpawned()
+    {
+        if (onEnemySpawned != null)
+            onEnemySpawned();
+    }
+
     /* public Action<EnemyStatus> onStatusInflicted;
      public void StatusInflicted(EnemyStatus status)
      {
