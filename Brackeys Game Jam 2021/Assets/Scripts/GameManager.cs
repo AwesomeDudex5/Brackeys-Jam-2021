@@ -29,6 +29,15 @@ public class GameManager : MonoBehaviour
 
     #region List of Actions
 
+    public Action<int, int> onWaveSpawned;
+    public void WaveSpawned(int waveNum, int amountToKill)
+    {
+        if(onWaveSpawned != null)
+        {
+            onWaveSpawned(waveNum, amountToKill);
+        }
+    }
+
     public Action onEnemyKilled;
     public void EnemyKilled()
     {
@@ -50,11 +59,37 @@ public class GameManager : MonoBehaviour
              onStatusInflicted(status);
      }
      */
+
+    public Action<int> onSetHealthUI;
+    public void SetHeatlhUI(int amount)
+    {
+        if (onSetHealthUI != null)
+            onSetHealthUI(amount);
+    }
+
     public Action<int> onFoodPickedUp;
     public void FoodPickedUp(int amount)
     {
         if (onFoodPickedUp != null)
             onFoodPickedUp(amount);
+    }
+
+    public Action onPlayerDamaged;
+    public void PlayerDamaged()
+    {
+        if(onPlayerDamaged != null)
+        {
+            onPlayerDamaged();
+        }
+    }
+
+    public Action<int, int> onSpellActivated;
+    public void SpellActivated(int spellID, int cooldownTime)
+    {
+        if(onSpellActivated != null)
+        {
+            onSpellActivated(spellID, cooldownTime);
+        }
     }
 
     #endregion

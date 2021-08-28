@@ -118,6 +118,8 @@ public class WaveManager : MonoBehaviour
             currentWave++;
             amountKilled = 0;
             totalToKillPerWave += incrementAmountAfterWave;
+
+            GameManager.current.WaveSpawned(currentWave, totalToKillPerWave);
         }
 
     }

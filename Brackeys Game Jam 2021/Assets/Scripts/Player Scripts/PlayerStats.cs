@@ -11,11 +11,13 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         GameManager.current.onFoodPickedUp += healPlayer;
+        GameManager.current.SetHeatlhUI(health);
     }
 
     public void takeDamage(int amount)
     {
         health -= amount;
+        GameManager.current.PlayerDamaged();
         if(health < 0)
         {
             destroyPlayer();

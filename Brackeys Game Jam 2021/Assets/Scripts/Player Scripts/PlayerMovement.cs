@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : DirectPlayerAnimationControl
 {
 
-    public Animator anim;
+    //public Animator anim;
 
     Vector2 InputVector;
     Vector3 MousePosition;
@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     private float cameraZoomDistance;
     [SerializeField]
     private float cameraOffset;
+    [SerializeField]
+    private float cameraRotation;
 
     [Header("Movement Stats")]
     [SerializeField]
@@ -32,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+         cam.transform.eulerAngles = new Vector3(cameraRotation, 0f, 0f);
     }
 
     // Update is called once per frame
@@ -41,15 +44,18 @@ public class PlayerMovement : MonoBehaviour
         InputVector.x = Input.GetAxisRaw("Horizontal");
         InputVector.y = Input.GetAxisRaw("Vertical");
 
+        controller.SetFloat(X_LABEL, InputVector.x);
+        controller.SetFloat(Y_LABEL, InputVector.y);
+
         MousePosition = Input.mousePosition;
 
         if (InputVector.x > 0 || InputVector.y > 0)
         {
-            anim.SetFloat("speed", 1);
+           // anim.SetFloat("speed", 1);
         }
         else
         {
-            anim.SetFloat("speed", 0);
+           // anim.SetFloat("speed", 0);
         }
 
     }

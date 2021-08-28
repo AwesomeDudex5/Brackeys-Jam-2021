@@ -133,6 +133,8 @@ public class EnemyBehavior : MonoBehaviour
         isAttacking = false;
     }
 
+    //-------------- will be called by player scripts-----------------
+
     public void takeDamage(int amount)
     {
         health = health - amount;
@@ -149,8 +151,10 @@ public class EnemyBehavior : MonoBehaviour
     {
         isHunting = false;
         status = infliction;
-        partStatus(status);
+        parseStatus(status);
     }
+
+    //----------------------------------------------------------------------
 
     public void resetStatus()
     {
@@ -159,7 +163,7 @@ public class EnemyBehavior : MonoBehaviour
         status = EnemyStatus.none;
     }
 
-    void partStatus(EnemyStatus infliction)
+    void parseStatus(EnemyStatus infliction)
     {
         switch (infliction)
         {
@@ -238,6 +242,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         int randIndex = Random.Range(0, animalTransformations.Length);
         Instantiate(animalTransformations[randIndex], this.transform.position, Quaternion.identity);
+        GameManager.current.EnemyKilled();
         Destroy(this.gameObject);
     }
 

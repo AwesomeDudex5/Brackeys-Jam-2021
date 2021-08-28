@@ -6,15 +6,15 @@ using UnityEngine;
  *  but can use the same strategy for the actual controller */
 public class DirectPlayerAnimationControl : MonoBehaviour
 {
-    private const string X_LABEL = "X";
-    private const string Y_LABEL = "Y";
-    
+    [HideInInspector] public const string X_LABEL = "X";
+    [HideInInspector] public const string Y_LABEL = "Y";
+
     private const string SPELL_LABEL = "Spell1";
     private const string SPELL2_LABEL = "Spell2";
     private const string SPELL3_LABEL = "Spell3";
     private const string HIT_LABEL = "Hit";
     private const string DEATH_LABEL = "Death";
-    
+
     public float x;
     public float y;
 
@@ -34,26 +34,31 @@ public class DirectPlayerAnimationControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        controller.SetFloat(X_LABEL, x);
-        controller.SetFloat(Y_LABEL, y);
+        // controller.SetFloat(X_LABEL, x);
+        // controller.SetFloat(Y_LABEL, y);
 
-        if (causeSpell) {
+        if (causeSpell)
+        {
             controller.SetTrigger(SPELL_LABEL);
             causeSpell = false;
         }
-        if (causeSpell2) {
+        if (causeSpell2)
+        {
             controller.SetTrigger(SPELL2_LABEL);
             causeSpell2 = false;
         }
-        if (causeSpell3) {
+        if (causeSpell3)
+        {
             controller.SetTrigger(SPELL3_LABEL);
             causeSpell3 = false;
         }
-        if (causeHit) {
+        if (causeHit)
+        {
             controller.SetTrigger(HIT_LABEL);
             causeHit = false;
         }
-        if (causeDeath) {
+        if (causeDeath)
+        {
             controller.SetTrigger(DEATH_LABEL);
             causeDeath = false;
         }
