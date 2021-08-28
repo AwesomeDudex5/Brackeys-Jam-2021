@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spell
+public class Spell : MonoBehaviour
 {
     public GameObject spellPrefab;
-    public float cooldownTime;
-    public float currentCooldown;
+    public int cooldownTime;
+    public int currentCooldown;
 
-    public Spell(GameObject _spellPrefab, float _cooldownTime)
+    public Spell(GameObject _spellPrefab, int _cooldownTime)
     {
         spellPrefab = _spellPrefab;
         cooldownTime = _cooldownTime;
@@ -23,25 +23,46 @@ public class Spell
     // Cooldown Code would go here
     public void cooldownStart()
     {
+        currentCooldown = cooldownTime;
+        StartCoroutine(cooldownTimer());
+    }
 
+    IEnumerator cooldownTimer()
+    {
+        while (currentCooldown > 0)
+        {
+            currentCooldown--;
+            yield return new WaitForSeconds(1f);
+        }
     }
 }
 
 public class SpellManager : MonoBehaviour
 {
 
-    public List<Spell> spellList = new List<Spell>();
-    public GameObject testSpellprefab;
-
+    public GameObject[] spellPrefabs;
+    public Spell[] spellList;
     //test spell
     public void Start()
     {
-        spellList.Add(new Spell(testSpellprefab, 150.0f));
+        /* 
+           Slow Time = 0
+           Fireball = 1
+           Black Hole = 2
+           Gust = 3
+           Transformation = 4 
+        */
+
+        spellList = new Spell[] { new Spell(spellPrefabs[0], 15),
+                                    new Spell(spellPrefabs[1], 15),
+                                    new Spell(spellPrefabs[2], 15),
+                                    new Spell(spellPrefabs[3], 15),
+                                    new Spell(spellPrefabs[4], 15)};
     }
 
     public void Update()
     {
-        ActivateSpell(spellList[0], new Vector3(6, 5, 10));
+        
     }
 
     public void ActivateSpell(Spell targetSpell, Vector3 targetLocation)
@@ -50,8 +71,8 @@ public class SpellManager : MonoBehaviour
         {
             GameObject newPrefab = Instantiate(targetSpell.spellPrefab, gameObject.transform.position, Quaternion.identity);
             newPrefab.GetComponent<SpellBehavior>().target = targetLocation;
-            targetSpell.currentCooldown = targetSpell.cooldownTime;
             targetSpell.cooldownStart();
+            GameManager.current.SpellActivated(System.Array.IndexOf(spellList, targetSpell), targetSpell.cooldownTime);
         }
         Debug.Log("SpellChecked");
     }
