@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
+    
     public int currentWave = 0;
  //   public int amountSpawned; //counts how many alive in arena
     public int amountKilled;
@@ -21,6 +22,7 @@ public class WaveManager : MonoBehaviour
         //  GameManager.current.onEnemySpawned += updateCurrentAmountSpawned;
         canSpawn = true;
         GameManager.current.onEnemyKilled += updateCurrentAmountKilled;
+        GameManager.current.onWaveSpawned(currentWave, totalToKillPerWave);
     }
 
     // Update is called once per frame
@@ -62,6 +64,7 @@ public class WaveManager : MonoBehaviour
         int remainder = amountToSpawn % spawnPoints.Length;
         Debug.Log("Amount to Spawn: " + amountToSpawn + " Amount for Spawners: " + amountForSpawners + " Remainder: " + remainder);
 
+
         for (int i = 0; i < spawnPoints.Length; i++)
         {
             /* if (amountSpawned + spawnCap < amountToSpawn)
@@ -80,11 +83,23 @@ public class WaveManager : MonoBehaviour
              */
             //  amountToSpawn = totalToKillPerWave - amountSpawned;
 
+
+            /*
             if (i < spawnPoints.Length - 1)
                 spawnPoints[i].GetComponent<SpawnPointScript>().spawnAmount(amountForSpawners);
             else
                 spawnPoints[i].GetComponent<SpawnPointScript>().spawnAmount(amountForSpawners + remainder);
+                */
 
+            if (remainder > 0)
+            {
+                spawnPoints[i].GetComponent<SpawnPointScript>().spawnAmount(amountForSpawners + 1);
+                remainder -= 1;
+            }
+            else
+            {
+                spawnPoints[i].GetComponent<SpawnPointScript>().spawnAmount(amountForSpawners);
+            }
 
         }
 

@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField] private int health;
+    public int health;
     [SerializeField] private int maxHealth;
 
     // Start is called before the first frame update
     void Start()
     {
         GameManager.current.onFoodPickedUp += healPlayer;
-        GameManager.current.SetHeatlhUI(health);
+
+        //bug where onSendHealth call isn't responding, set it at start of first wave spawn
+        GameManager.current.onWaveSpawned += sendHealthUI;
     }
 
     public void takeDamage(int amount)
     {
         health -= amount;
         GameManager.current.PlayerDamaged();
-        if(health < 0)
+        if (health < 0)
         {
             destroyPlayer();
         }
@@ -35,5 +37,10 @@ public class PlayerStats : MonoBehaviour
         health += healAmount;
         if (health > maxHealth)
             health = maxHealth;
+    }
+
+    void sendHealthUI(int dud, int dudd)
+    {
+        GameManager.current.SetHeatlhUI(health);
     }
 }

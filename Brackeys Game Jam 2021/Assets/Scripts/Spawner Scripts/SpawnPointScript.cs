@@ -10,7 +10,8 @@ public class SpawnPointScript : MonoBehaviour
     //public float spawnCap;
     public float amountSpawned;
 
-    public GameObject objectToSpawn;
+    public GameObject[] objectToSpawn;
+    private int spawnIndex;
     public Transform walkToPoint;
 
     public bool isSpawning = false;
@@ -60,7 +61,7 @@ public class SpawnPointScript : MonoBehaviour
 
     public void spawnAmount(int amount)
     {
-       // Debug.Log(gameObject.name + " amount to spawn: " + amount);
+        // Debug.Log(gameObject.name + " amount to spawn: " + amount);
         StartCoroutine(instantiateObject(amount));
     }
 
@@ -70,8 +71,9 @@ public class SpawnPointScript : MonoBehaviour
 
         for (int i = 0; i < amount; i++)
         {
-            GameObject go = Instantiate(objectToSpawn, this.transform.position, Quaternion.identity) as GameObject;
-            go.GetComponent<EnemyBehavior>().spawnWalkPoint = walkToPoint.position;
+            spawnIndex = Random.Range(0, objectToSpawn.Length);
+            GameObject go = Instantiate(objectToSpawn[spawnIndex], this.transform.position, Quaternion.identity) as GameObject;
+            //go.GetComponent<EnemyBehavior>().spawnWalkPoint = walkToPoint.position;
 
             yield return new WaitForSeconds(spawnInterval);
         }

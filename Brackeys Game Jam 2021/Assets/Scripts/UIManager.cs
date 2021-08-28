@@ -20,13 +20,20 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.current.onSetHealthUI += setHealth;
+        //Reset helath ui
+        for (int i = 0; i < healthUI.Length; i++)
+        {
+            healthUI[i].gameObject.SetActive(false);
+        }
+
+
+        GameManager.current.onSetHealthUI += setHealthGODDAMMIT;
         GameManager.current.onFoodPickedUp += increaseHealth;
         GameManager.current.onPlayerDamaged += decrementHealth;
 
         GameManager.current.onWaveSpawned += setWaveUI;
         GameManager.current.onEnemyKilled += updateEnemyKilledUI;
-        
+
     }
 
     // Update is called once per frame
@@ -53,15 +60,17 @@ public class UIManager : MonoBehaviour
     void updateEnemyKilledUI()
     {
         amountHaveKilled++;
-        EnemiesToKillText.text = amountHaveKilled + " / " + amountToKillTotal; 
+        EnemiesToKillText.text = amountHaveKilled + " / " + amountToKillTotal;
     }
 
-    void setHealth(int amount)
+    void setHealthGODDAMMIT(int amount)
     {
         cuurentHealth = amount;
+        Debug.Log("Reached Current Health: " + cuurentHealth);
         for (int i = 0; i < cuurentHealth; i++)
         {
             healthUI[i].SetActive(true);
+
         }
     }
 
@@ -76,6 +85,7 @@ public class UIManager : MonoBehaviour
 
     void decrementHealth()
     {
+        Debug.Log("Decrementing Health UI");
         cuurentHealth--;
         if (cuurentHealth >= 0)
         {

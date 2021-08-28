@@ -5,14 +5,19 @@ using UnityEngine.AI;
 
 public class EnemyBehavior : MonoBehaviour
 {
+
+    //purely for testing
+    public bool canDieOnTimer = true;
+
     public NavMeshAgent agent;
 
     private Transform playerTransform;
-    [HideInInspector] public Vector3 spawnWalkPoint;
+   // [HideInInspector] public Vector3 spawnWalkPoint;
 
     // public LayerMask groundLayer, playerLayer;
 
     public float health;
+    public Animator anim;
 
     //Chase Player Behavior
     [Header("Chase State")]
@@ -43,11 +48,15 @@ public class EnemyBehavior : MonoBehaviour
     void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        agent = GameObject.FindObjectOfType<NavMeshAgent>();
+        agent = this.gameObject.GetComponent<NavMeshAgent>();  //GameObject.FindObjectOfType<NavMeshAgent>();
         movementSpeed = agent.speed;
       //  GameManager.current.EnemySpawned();
-        StartCoroutine(walkToSpawnPoint(spawnWalkPoint));
-        StartCoroutine(dieOnTimer(3.5f));
+       // StartCoroutine(walkToSpawnPoint(spawnWalkPoint));
+
+        if(canDieOnTimer == true)
+        {
+            StartCoroutine(dieOnTimer(3.5f));
+        }
 
 
     }
@@ -108,7 +117,7 @@ public class EnemyBehavior : MonoBehaviour
     void chasePlayer(Transform _player)
     {
         this.transform.LookAt(_player);
-        agent.SetDestination(_player.position);
+        this.agent.SetDestination(_player.position);
     }
 
     bool checkInAttackRange(Transform _player)
@@ -125,7 +134,12 @@ public class EnemyBehavior : MonoBehaviour
         isAttacking = true;
 
         yield return new WaitForSeconds(attackTime);
+
         //put attack animation code here
+        anim.SetTrigger("Attack");
+
+        yield return new WaitForSeconds(1.25f);
+
         if (attackTarget != null)
             _target.GetComponent<PlayerStats>().takeDamage(1);
 

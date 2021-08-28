@@ -47,8 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnInterval: 6
   amountSpawned: 0
-  objectToSpawn: {fileID: 6487980405817128399, guid: 88df57a0aad68db4889284ba872d795c,
-    type: 3}
+  objectToSpawn:
+  - {fileID: 6487980405817128399, guid: 88df57a0aad68db4889284ba872d795c, type: 3}
+  - {fileID: 4235123920833269426, guid: 54f4b76f4c3bc38439110ef7b0c01464, type: 3}
   walkToPoint: {fileID: 7563989145521839668}
   isSpawning: 0
 --- !u!1 &7563989144460785899
