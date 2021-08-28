@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,11 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
     public int currentWave = 0;
-    public int amountSpawned; //counts how many alive in arena
+ //   public int amountSpawned; //counts how many alive in arena
     public int amountKilled;
 
     public int totalToKillPerWave;
-    public int spawnCap; //max to have spawned on field
+  //  public int spawnCap; //max to have spawned on field
     public int incrementAmountAfterWave;
     public GameObject[] spawnPoints;
     private bool canSpawn;
@@ -52,62 +53,40 @@ public class WaveManager : MonoBehaviour
      }
  */
 
-    /* void SpawnEnemies()
-     {
-         int randomIndex = 0;
-
-         if (amountKilled < totalToKillPerWave)
-         {
-             if(amountSpawned < spawnCap)
-             {
-                 int amountToSpawn = spawnCap - amountSpawned;
-
-                 for(int i = 0; i < amountToSpawn; i++)
-                 {
-                     //choose random spawnPoint
-                     randomIndex = Random.Range(0, spawnPoints.Length - 1);
-                     if(spawnPoints[randomIndex].GetComponent<SpawnPointScript>().isSpawning == false)
-                     {
-                         spawnPoints[randomIndex].GetComponent<SpawnPointScript>().spawnAmount(spawnAmountAtTime);
-                         amountSpawned += spawnAmountAtTime;
-                         amountToSpawn = spawnCap - amountSpawned;
-                     }
-                 }
-             }
-         }
-     }
-     */
-
 
     void SpawnEnemies()
     {
         canSpawn = false;
-        int amountToSpawn = totalToKillPerWave - amountSpawned;
-        Debug.Log("Amount to Spawn: " + amountToSpawn);
+        int amountToSpawn = totalToKillPerWave;
+        int amountForSpawners = amountToSpawn / spawnPoints.Length;
+        int remainder = amountToSpawn % spawnPoints.Length;
+        Debug.Log("Amount to Spawn: " + amountToSpawn + " Amount for Spawners: " + amountForSpawners + " Remainder: " + remainder);
 
         for (int i = 0; i < spawnPoints.Length; i++)
         {
-            if (amountSpawned + spawnCap < amountToSpawn)
-            {
-                int randAmountToSpawn = Random.Range(1, spawnCap);
-                spawnPoints[i].GetComponent<SpawnPointScript>().spawnAmount(randAmountToSpawn);
-                amountSpawned += randAmountToSpawn;
-            }
-            else
-            {
-                int setAmountToSpawn = amountToSpawn - amountSpawned;
-                spawnPoints[i].GetComponent<SpawnPointScript>().spawnAmount(setAmountToSpawn);
-                amountSpawned += setAmountToSpawn;
-                break;
-            }
+            /* if (amountSpawned + spawnCap < amountToSpawn)
+             {
+                 int randAmountToSpawn = Random.Range(1, spawnCap);
+                 spawnPoints[i].GetComponent<SpawnPointScript>().spawnAmount(randAmountToSpawn);
+                 amountSpawned += randAmountToSpawn;
+             }
+             else
+             {
+                 int setAmountToSpawn = amountToSpawn - amountSpawned;
+                 spawnPoints[i].GetComponent<SpawnPointScript>().spawnAmount(setAmountToSpawn);
+                 amountSpawned += setAmountToSpawn;
+                 break;
+             }
+             */
             //  amountToSpawn = totalToKillPerWave - amountSpawned;
-        }
-        if (amountSpawned < totalToKillPerWave)
-        {
-            Debug.Log("cONT SPAWN");
-            SpawnEnemies();
-        }
 
+            if (i < spawnPoints.Length - 1)
+                spawnPoints[i].GetComponent<SpawnPointScript>().spawnAmount(amountForSpawners);
+            else
+                spawnPoints[i].GetComponent<SpawnPointScript>().spawnAmount(amountForSpawners + remainder);
+
+
+        }
 
     }
 
@@ -137,6 +116,7 @@ public class WaveManager : MonoBehaviour
         {
             canSpawn = true;
             currentWave++;
+            amountKilled = 0;
             totalToKillPerWave += incrementAmountAfterWave;
         }
 
