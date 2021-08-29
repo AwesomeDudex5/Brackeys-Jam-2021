@@ -506,6 +506,7 @@ GameObject:
   - component: {fileID: 1331866875}
   - component: {fileID: 1331866874}
   - component: {fileID: 1331866873}
+  - component: {fileID: 1331866880}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -531,7 +532,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 4848439419447201894, guid: b02b28fb8b5be18479f3f3d66adb9892, type: 3}
   - {fileID: 0}
-  spellList: []
+  cooldownTimes: 0f0000000f0000000f0000000f0000000f000000
   SpellMagnitude: 5
 --- !u!114 &1331866874
 MonoBehaviour:
@@ -630,13 +631,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1331866872}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.76, y: 5.14, z: -5.14}
+  m_LocalPosition: {x: 1.76, y: 5.14, z: -5.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1614415266}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1331866880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331866872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 977ac100639a9b941b246434ec1f55a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  food: {fileID: 8465644075842796832, guid: 2dcf36fd081267c4cae80a0b30ba7f35, type: 3}
+  foodSpawnPoint: {x: 1.76, y: 5.14, z: -1.46}
+  timeInterval: 5
+  foodChance: 0.9
 --- !u!1 &1614415263 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 124426386090352254, guid: e6fd12fc8fccacf408c213c7e6dddfd0,

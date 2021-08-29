@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SpellBehavior : MonoBehaviour
 {
-    public bool isProjectile;
     private Coroutine moveToTarget;
     public Vector3 target;
     public float speed;
@@ -12,6 +11,8 @@ public class SpellBehavior : MonoBehaviour
     public bool hasBurn;
     public bool hasWet;
     public bool hasPoison;
+    public bool hasGust;
+    public bool hasBlackhole;
     public bool hasFreeze;
     public bool hasStaggered;
     public bool Transforms;
@@ -19,8 +20,6 @@ public class SpellBehavior : MonoBehaviour
     public int damage;
 
     public bool timeSlow;
-    public float slowdownTimer;
-
 
     public bool hasAreaOfEffect;
     public float areaOfEffectRadius;
@@ -28,7 +27,16 @@ public class SpellBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(isProjectile) moveToTarget = StartCoroutine(MoveToTarget());
+        if (timeSlow)
+        {
+           GameObject[] Enemys = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach(GameObject n in Enemys)
+            {
+                //n.GetComponent<EnemyBehavior>().setStatus();
+                Object.Destroy(gameObject);
+            }
+        }
+        else moveToTarget = StartCoroutine(MoveToTarget());
     }
 
     IEnumerator MoveToTarget()
@@ -62,6 +70,8 @@ public class SpellBehavior : MonoBehaviour
                 if (hasWet) Enemy.GetComponent<EnemyBehavior>().setStatus(EnemyStatus.wet);
                 if (hasStaggered) Enemy.GetComponent<EnemyBehavior>().setStatus(EnemyStatus.staggered);
                 if (transform) Enemy.GetComponent<EnemyBehavior>().setStatus(EnemyStatus.transformed);
+                if (hasBlackhole) Enemy.GetComponent<EnemyBehavior>().setStatus(EnemyStatus.blackholed);
+                if (hasGust) Enemy.GetComponent<EnemyBehavior>().setStatus(EnemyStatus.gusted);
             }
         }
     }
