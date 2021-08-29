@@ -11,8 +11,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.1405761, y: 2.0016017, z: 1}
-  m_Center: {x: 0.07028806, y: 0.94009995, z: 0}
+  m_Size: {x: 1.1405761, y: 1.9285731, z: 1}
+  m_Center: {x: 0.07028806, y: 0.97661424, z: 0}
 --- !u!1 &4235123920833269426
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,9 +56,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4235123920833269426}
   serializedVersion: 2
-  m_Mass: 10
+  m_Mass: 100
   m_Drag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -118,7 +118,8 @@ MonoBehaviour:
   movementSpeed: 1
   isHunting: 1
   attackRange: 2
-  attackTime: 2
+  attackTime: 0.5
+  hasVictoryDance: 1
   status: 0
   burnDuration: 0
   burnRange: 0

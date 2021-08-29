@@ -63,12 +63,16 @@ public class SpellManager : MonoBehaviour
 
     public void Update()
     {
+<<<<<<< HEAD
         if (Input.GetKeyUp(KeyCode.Alpha1)) ActivateSpell(spellList[0]);
         if (Input.GetKeyUp(KeyCode.Alpha2)) ActivateSpell(spellList[1]);
         if (Input.GetKeyUp(KeyCode.Alpha3)) ActivateSpell(spellList[2]);
         if (Input.GetKeyUp(KeyCode.Alpha4)) ActivateSpell(spellList[3]);
         if (Input.GetKeyUp(KeyCode.Alpha5)) ActivateSpell(spellList[4]);
     }
+=======
+     }
+>>>>>>> main
 
     public void ActivateSpell(Spell targetSpell)
     {

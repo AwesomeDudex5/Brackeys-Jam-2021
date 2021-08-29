@@ -14,12 +14,14 @@ public class PlayerStats : MonoBehaviour
 
         //bug where onSendHealth call isn't responding, set it at start of first wave spawn
         GameManager.current.onWaveSpawned += sendHealthUI;
+        GameManager.current.onPlayerDamaged += takeDamage;
     }
 
-    public void takeDamage(int amount)
+    public void takeDamage()
     {
-        health -= amount;
-        GameManager.current.PlayerDamaged();
+        health--;
+        AudioManager.instance.playSound("Player Got Hit");
+       // GameManager.current.PlayerDamaged();
         if (health < 0)
         {
             destroyPlayer();
@@ -28,8 +30,9 @@ public class PlayerStats : MonoBehaviour
 
     void destroyPlayer()
     {
-        Debug.Log("Player Dead lol");
-        Destroy(this.gameObject);
+        //Debug.Log("Player Dead lol");
+        // Destroy(this.gameObject);
+        GameManager.current.PlayerDied();
     }
 
     void healPlayer(int healAmount)

@@ -12,7 +12,7 @@ public class EnemyBehavior : MonoBehaviour
     public NavMeshAgent agent;
 
     private Transform playerTransform;
-   // [HideInInspector] public Vector3 spawnWalkPoint;
+    // [HideInInspector] public Vector3 spawnWalkPoint;
 
     // public LayerMask groundLayer, playerLayer;
 
@@ -31,6 +31,7 @@ public class EnemyBehavior : MonoBehaviour
     public float attackTime;
     private bool isAttacking;
     private Transform attackTarget;
+    public bool hasVictoryDance;
 
     //Affected by Status Behavior
     [Header("Status Effect State")]
@@ -50,22 +51,24 @@ public class EnemyBehavior : MonoBehaviour
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         agent = this.gameObject.GetComponent<NavMeshAgent>();  //GameObject.FindObjectOfType<NavMeshAgent>();
         movementSpeed = agent.speed;
-      //  GameManager.current.EnemySpawned();
-       // StartCoroutine(walkToSpawnPoint(spawnWalkPoint));
+        //  GameManager.current.EnemySpawned();
+        // StartCoroutine(walkToSpawnPoint(spawnWalkPoint));
 
-        if(canDieOnTimer == true)
+        if (canDieOnTimer == true)
         {
             StartCoroutine(dieOnTimer(3.5f));
         }
 
+        GameManager.current.onPlayerDied += victoryDance;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isHunting == true)
+        if (isHunting == true && playerTransform != null)
         {
+
             if (checkInAttackRange(playerTransform) == false)
             {
                 chasePlayer(playerTransform);
@@ -78,9 +81,14 @@ public class EnemyBehavior : MonoBehaviour
                 }
             }
         }
+
+        if(playerTransform == null)
+        {
+            this.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+        }
     }
 
-    //for testing------------
+    //for testing purposes, just ignore------------
     IEnumerator dieOnTimer(float time)
     {
         yield return new WaitForSeconds(time);
@@ -137,14 +145,31 @@ public class EnemyBehavior : MonoBehaviour
 
         //put attack animation code here
         anim.SetTrigger("Attack");
+        AudioManager.instance.playSound("Enemy Attack Noise");
 
-        yield return new WaitForSeconds(1.25f);
+        yield return new WaitForSeconds(1.15f);
 
         if (attackTarget != null)
-            _target.GetComponent<PlayerStats>().takeDamage(1);
+        {
+            // _target.GetComponent<PlayerStats>().takeDamage(1);
+            GameManager.current.PlayerDamaged();
+        }
 
         isHunting = true;
         isAttacking = false;
+    }
+
+    void victoryDance()
+    {
+        StopAllCoroutines();
+        //playerTransform = null;
+        isHunting = false;
+        this.GetComponent<NavMeshAgent>().enabled = false;
+
+        if (hasVictoryDance == true)
+            anim.SetTrigger("Victory");
+
+        GameManager.current.onPlayerDied -= victoryDance;
     }
 
     //-------------- will be called by player scripts-----------------
@@ -153,7 +178,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         health = health - amount;
 
-        if(health <= 0 )
+        if (health <= 0)
         {
             //play death animations for grunts
             GameManager.current.EnemyKilled();
@@ -181,13 +206,17 @@ public class EnemyBehavior : MonoBehaviour
     {
         switch (infliction)
         {
-            case EnemyStatus.burn: StartCoroutine(burning());
+            case EnemyStatus.burn:
+                StartCoroutine(burning());
                 break;
-            case EnemyStatus.frozen: StartCoroutine(freezing());
+            case EnemyStatus.frozen:
+                StartCoroutine(freezing());
                 break;
-            case EnemyStatus.poison: StartCoroutine(poisoning());
+            case EnemyStatus.poison:
+                StartCoroutine(poisoning());
                 break;
-            case EnemyStatus.staggered: StartCoroutine(staggering());
+            case EnemyStatus.staggered:
+                StartCoroutine(staggering());
                 break;
             case EnemyStatus.transformed: //do stuff
                 break;
@@ -199,11 +228,11 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-   IEnumerator burning()
+    IEnumerator burning()
     {
         int timer = 0;
         agent.speed *= 1.5f;
-        while(timer < burnDuration)
+        while (timer < burnDuration)
         {
             health--;
             timer++;
@@ -217,7 +246,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         int timer = 0;
         agent.speed = 0;
-        while(timer < frozenDuration)
+        while (timer < frozenDuration)
         {
             timer++;
             yield return new WaitForSeconds(1f);

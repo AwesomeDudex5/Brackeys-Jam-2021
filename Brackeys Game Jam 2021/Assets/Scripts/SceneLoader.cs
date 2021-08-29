@@ -45,6 +45,7 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator loadScene(int index)
     {
+        AudioManager.instance.playSound("Scene Transition Sound");
         sceneAnim.SetTrigger("LoadScene");
         yield return new WaitForSeconds(1.8f);
         SceneManager.LoadScene(index);

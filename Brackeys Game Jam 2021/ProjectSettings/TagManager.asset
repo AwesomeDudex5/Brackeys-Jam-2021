@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Food
+  - Spiked
   layers:
   - Default
   - TransparentFX

@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        AudioManager.instance.playMusic("Battle Theme");
     }
 
     // Update is called once per frame
@@ -28,6 +28,15 @@ public class GameManager : MonoBehaviour
     }
 
     #region List of Actions
+
+    public Action<waveType> onParseWaveType;
+    public void ParseWaveType(waveType type)
+    {
+        if(onParseWaveType != null)
+        {
+            onParseWaveType(type);
+        }
+    }
 
     public Action<int, int> onWaveSpawned;
     public void WaveSpawned(int waveNum, int amountToKill)
@@ -80,6 +89,15 @@ public class GameManager : MonoBehaviour
         if(onPlayerDamaged != null)
         {
             onPlayerDamaged();
+        }
+    }
+
+    public Action onPlayerDied;
+    public void PlayerDied()
+    {
+        if(onPlayerDied != null)
+        {
+            onPlayerDied();
         }
     }
 
