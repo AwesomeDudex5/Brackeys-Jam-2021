@@ -19,7 +19,7 @@ public class SpawnPointScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GameManager.current.onPlayerDied += stopSpawning;
     }
 
     // Update is called once per frame
@@ -33,31 +33,6 @@ public class SpawnPointScript : MonoBehaviour
         */
 
     }
-
-    /*
-    void spawnObject()
-    {
-        //amountSpawned++;
-        if (isSpawning == false)
-        {
-            StartCoroutine(instantiateObject());
-        }
-    }
-
-    IEnumerator instantiateObject()
-    {
-        isSpawning = true;
-
-        GameObject go = Instantiate(objectToSpawn, this.transform.position, Quaternion.identity) as GameObject;
-        go.GetComponent<EnemyBehavior>().spawnWalkPoint = walkToPoint.position;
-
-        yield return new WaitForSeconds(spawnInterval);
-
-        isSpawning = false;
-
-    }
-
-    */
 
     public void spawnAmount(int amount)
     {
@@ -80,6 +55,12 @@ public class SpawnPointScript : MonoBehaviour
 
         isSpawning = false;
 
+    }
+
+    void stopSpawning()
+    {
+        StopAllCoroutines();
+        GameManager.current.onPlayerDied -= stopSpawning;
     }
 
 }

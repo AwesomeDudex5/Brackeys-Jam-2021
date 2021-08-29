@@ -1,17 +1,19 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum waveType { normalWave, rockWave, cowWave }
+
 public class WaveManager : MonoBehaviour
 {
-    
     public int currentWave = 0;
- //   public int amountSpawned; //counts how many alive in arena
+    public waveType TypeOfWave;
+    //   public int amountSpawned; //counts how many alive in arena
     public int amountKilled;
 
     public int totalToKillPerWave;
-  //  public int spawnCap; //max to have spawned on field
+    //  public int spawnCap; //max to have spawned on field
     public int incrementAmountAfterWave;
     public GameObject[] spawnPoints;
     private bool canSpawn;
@@ -22,7 +24,9 @@ public class WaveManager : MonoBehaviour
         //  GameManager.current.onEnemySpawned += updateCurrentAmountSpawned;
         canSpawn = true;
         GameManager.current.onEnemyKilled += updateCurrentAmountKilled;
-        GameManager.current.onWaveSpawned(currentWave, totalToKillPerWave);
+        GameManager.current.WaveSpawned(currentWave, totalToKillPerWave);
+
+        AudioManager.instance.playSound("Crowd Noise");
     }
 
     // Update is called once per frame
@@ -135,8 +139,29 @@ public class WaveManager : MonoBehaviour
             totalToKillPerWave += incrementAmountAfterWave;
 
             GameManager.current.WaveSpawned(currentWave, totalToKillPerWave);
-        }
 
+        }
     }
 
+    void parseWave()
+    {
+        if(currentWave%5 == 0)
+        {
+            int rand = Random.Range(0, 1);
+            {
+                if(rand ==0)
+                {
+                    TypeOfWave = waveType.rockWave;
+                }
+                else
+                {
+                    TypeOfWave = waveType.cowWave;
+                }
+            }
+        }
+        else
+        {
+            TypeOfWave = waveType.normalWave;
+        }
+    }
 }

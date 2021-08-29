@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     private int amountHaveKilled;
     private int amountToKillTotal;
 
+    public GameObject gameOverUI;
+
     [Header("Spells UI Stats")]
     public GameObject[] spellsUI;
     public Color cooldownColor;
@@ -26,13 +28,15 @@ public class UIManager : MonoBehaviour
             healthUI[i].gameObject.SetActive(false);
         }
 
-
+        gameOverUI.SetActive(false);
         GameManager.current.onSetHealthUI += setHealthGODDAMMIT;
         GameManager.current.onFoodPickedUp += increaseHealth;
         GameManager.current.onPlayerDamaged += decrementHealth;
 
         GameManager.current.onWaveSpawned += setWaveUI;
         GameManager.current.onEnemyKilled += updateEnemyKilledUI;
+
+        GameManager.current.onPlayerDied += activateGameOverUI;
 
     }
 
@@ -116,6 +120,23 @@ public class UIManager : MonoBehaviour
 
         spellsUI[spellID].GetComponent<Image>().color = Color.white;
         spellsUI[spellID].transform.GetChild(1).gameObject.SetActive(false);
+    }
 
+    void activateGameOverUI()
+    {
+        //disable other UI
+        for(int i = 0; i < healthUI.Length;i++)
+        {
+            healthUI[i].SetActive(false);
+        }
+        for (int i = 0; i < spellsUI.Length; i++)
+        {
+            spellsUI[i].SetActive(false);
+        }
+       // WaveNumberText.gameObject.SetActive(false);
+        EnemiesToKillText.gameObject.SetActive(false);
+
+        gameOverUI.SetActive(true);
+        GameManager.current.onPlayerDied -= activateGameOverUI;
     }
 }
