@@ -38,19 +38,21 @@ public class EnemyBehavior : MonoBehaviour
     public EnemyStatus status;
     [SerializeField] private float burnDuration;
     [SerializeField] private float burnRange;
+    public GameObject flameParticles;
     [SerializeField] private float staggeredDuration;
     [SerializeField] private float frozenDuration;
     [SerializeField] private float poisonDuration;
     [SerializeField] private float wetDuration;
     [SerializeField] private float slowedDownTimeDuration;
     public float forceAmount;
-    public GameObject[] animalTransformations;
+    public GameObject animalObject;
     private Vector3 spellCollisionPoint;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        flameParticles.SetActive(false);
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         agent = this.gameObject.GetComponent<NavMeshAgent>();  //GameObject.FindObjectOfType<NavMeshAgent>();
         movementSpeed = agent.speed;
@@ -63,6 +65,8 @@ public class EnemyBehavior : MonoBehaviour
         }
 
         GameManager.current.onPlayerDied += victoryDance;
+
+        setStatus(status);
 
     }
 
@@ -236,24 +240,46 @@ public class EnemyBehavior : MonoBehaviour
             case EnemyStatus.gusted:
                 StartCoroutine(blowAwayFromPoint());
                 break;
+            case EnemyStatus.slowTimed:
+                StartCoroutine(slowedByTime());
+                break;
             default:
                 Debug.Log("No Status Applied");
                 break;
         }
     }
 
+    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    {
+        Vector3 randDirection = Random.insideUnitSphere * dist;
+
+        randDirection += origin;
+
+        NavMeshHit navHit;
+
+        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
+
+        return navHit.position;
+    }
+
+
     IEnumerator burning()
     {
-        Debug.Log("Is Burning");
+        // Debug.Log("Is Burning");
         int timer = 0;
         agent.speed *= 1.5f;
+        flameParticles.SetActive(true);
         while (timer < burnDuration)
         {
             health--;
             timer++;
-            agent.SetDestination(new Vector3(Random.Range(-burnRange, burnRange), this.transform.position.y, Random.Range(-burnRange, burnRange)));
+            // Debug.Log("Timer: " + timer);
+            Vector3 newPos = RandomNavSphere(transform.position, burnRange, -1);
+            agent.SetDestination(newPos);
             yield return new WaitForSeconds(1f);
         }
+
+        flameParticles.SetActive(false);
         resetStatus();
     }
 
@@ -298,8 +324,8 @@ public class EnemyBehavior : MonoBehaviour
 
     void animalTransform()
     {
-        int randIndex = Random.Range(0, animalTransformations.Length);
-        Instantiate(animalTransformations[randIndex], this.transform.position, Quaternion.identity);
+       // int randIndex = Random.Range(0, animalTransformations.Length);
+        Instantiate(animalObject, this.transform.position, Quaternion.identity);
         GameManager.current.EnemyKilled();
         Destroy(this.gameObject);
     }
