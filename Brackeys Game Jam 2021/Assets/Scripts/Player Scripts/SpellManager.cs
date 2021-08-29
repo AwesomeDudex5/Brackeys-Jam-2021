@@ -42,6 +42,7 @@ public class SpellManager : MonoBehaviour
 
     public GameObject[] spellPrefabs;
     public Spell[] spellList;
+    public int SpellMagnitude;
     //test spell
     public void Start()
     {
@@ -62,15 +63,19 @@ public class SpellManager : MonoBehaviour
 
     public void Update()
     {
-        
+        if (Input.GetKeyUp(KeyCode.Alpha1)) ActivateSpell(spellList[0]);
+        if (Input.GetKeyUp(KeyCode.Alpha2)) ActivateSpell(spellList[1]);
+        if (Input.GetKeyUp(KeyCode.Alpha3)) ActivateSpell(spellList[2]);
+        if (Input.GetKeyUp(KeyCode.Alpha4)) ActivateSpell(spellList[3]);
+        if (Input.GetKeyUp(KeyCode.Alpha5)) ActivateSpell(spellList[4]);
     }
 
-    public void ActivateSpell(Spell targetSpell, Vector3 targetLocation)
+    public void ActivateSpell(Spell targetSpell)
     {
         if(targetSpell.isCooled())
         {
-            GameObject newPrefab = Instantiate(targetSpell.spellPrefab, gameObject.transform.position, Quaternion.identity);
-            newPrefab.GetComponent<SpellBehavior>().target = targetLocation;
+            GameObject newPrefab = Instantiate(targetSpell.spellPrefab, gameObject.transform.position + new Vector3(0, .75f, 0), Quaternion.identity);
+            newPrefab.GetComponent<SpellBehavior>().target = transform.position + new Vector3(0, .75f, 0) + (transform.rotation *  new Vector3(0, 0, SpellMagnitude));
             targetSpell.cooldownStart();
             GameManager.current.SpellActivated(System.Array.IndexOf(spellList, targetSpell), targetSpell.cooldownTime);
         }
