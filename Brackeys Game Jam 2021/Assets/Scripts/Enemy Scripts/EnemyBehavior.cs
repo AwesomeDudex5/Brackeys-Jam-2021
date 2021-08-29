@@ -66,7 +66,7 @@ public class EnemyBehavior : MonoBehaviour
 
         GameManager.current.onPlayerDied += victoryDance;
 
-        setStatus(status);
+       // setStatus(status);
 
     }
 
