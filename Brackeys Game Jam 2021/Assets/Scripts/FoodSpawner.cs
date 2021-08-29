@@ -5,14 +5,16 @@ using UnityEngine;
 public class FoodSpawner : MonoBehaviour
 {
     public GameObject food;
-    public Vector3 foodSpawnPoint;
+    private Vector3 foodSpawnPoint;
     public int timeInterval;
     public float foodChance;
 
     void Start()
     {
         StartCoroutine(foodTimer(timeInterval));
+        foodSpawnPoint = this.transform.position;
     }
+    
 
     public void SpawnFood()
     {
@@ -26,7 +28,7 @@ public class FoodSpawner : MonoBehaviour
             time--;
             yield return new WaitForSeconds(1);
         }
-        if (Random.value > foodChance) SpawnFood();
+        if ((int)Random.Range(0,100) < foodChance) SpawnFood();
         StartCoroutine(foodTimer(timeInterval));
     }
 }

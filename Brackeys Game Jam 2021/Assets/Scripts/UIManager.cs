@@ -38,6 +38,8 @@ public class UIManager : MonoBehaviour
 
         GameManager.current.onPlayerDied += activateGameOverUI;
 
+        GameManager.current.onSpellActivated += spellActivatedUI;
+
     }
 
     // Update is called once per frame

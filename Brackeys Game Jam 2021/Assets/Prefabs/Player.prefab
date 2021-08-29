@@ -26,7 +26,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 92ae44eef9705ca4f804db5a11a6c126, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 4455619473722177008}
   - component: {fileID: 4455619473722177022}
   - component: {fileID: 4455619473722177009}
+  - component: {fileID: 4455619473199977259}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -75,13 +76,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4455619473722177021}
   serializedVersion: 2
-  m_Mass: 20
+  m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 64
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!65 &4455619473722177008
 BoxCollider:
@@ -117,8 +118,9 @@ MonoBehaviour:
   causeDeath: 0
   controller: {fileID: 2126630931368002553}
   rotateTowardMouse: 1
-  cameraZoomDistance: 19
+  cameraZoomDistance: 8
   cameraOffset: -10
+  cameraRotation: 52
   movementSpeed: 10
   rotationSpeed: 10
 --- !u!114 &4455619473722177009
@@ -135,6 +137,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   maxHealth: 6
+--- !u!114 &4455619473199977259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4455619473722177021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c921832a606e7564bb6b96c147e07da3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellPrefabs:
+  - {fileID: 147695700226105233, guid: a7de30b06214c8a40aa4f6e928657d12, type: 3}
+  - {fileID: 4121347294061730569, guid: c5fdf4645766e084a8907267bdb6b91d, type: 3}
+  - {fileID: 4175952444512341184, guid: 9dd43e126e0afc546bbddff997c97354, type: 3}
+  - {fileID: 4848439419447201894, guid: b02b28fb8b5be18479f3f3d66adb9892, type: 3}
+  - {fileID: 977013750157838544, guid: 6af3579ac6f6cc645b9c7a3fd777fca3, type: 3}
+  cooldownTimes: 1e000000140000001e0000000f0000002d000000
+  SpellMagnitude: 6
 --- !u!1001 &4455619472074080362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -146,6 +168,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerWizard
+      objectReference: {fileID: 0}
+    - target: {fileID: 124426386090352254, guid: e6fd12fc8fccacf408c213c7e6dddfd0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2068700383472032627, guid: e6fd12fc8fccacf408c213c7e6dddfd0,
         type: 3}

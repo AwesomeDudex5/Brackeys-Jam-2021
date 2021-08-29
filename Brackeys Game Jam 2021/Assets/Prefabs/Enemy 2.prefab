@@ -4927,7 +4927,7 @@ MonoBehaviour:
   hasVictoryDance: 1
   status: 9
   burnDuration: 5
-  burnRange: 2
+  burnRange: 1
   flameParticles: {fileID: 387687357}
   staggeredDuration: 0
   frozenDuration: 0
@@ -4935,7 +4935,8 @@ MonoBehaviour:
   wetDuration: 0
   slowedDownTimeDuration: 0
   forceAmount: 0
-  animalObject: {fileID: 4235123920833269426}
+  animalObject: {fileID: 4830360981319262627, guid: c9b5582a8ed9ce446932f2052d4b31bf,
+    type: 3}
 --- !u!1001 &1786698374570706861
 PrefabInstance:
   m_ObjectHideFlags: 0

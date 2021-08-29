@@ -72,6 +72,7 @@ public class SpellBehavior : MonoBehaviour
                 if (transform) Enemy.GetComponent<EnemyBehavior>().setStatus(EnemyStatus.transformed);
                 if (hasBlackhole) Enemy.GetComponent<EnemyBehavior>().setStatus(EnemyStatus.blackholed);
                 if (hasGust) Enemy.GetComponent<EnemyBehavior>().setStatus(EnemyStatus.gusted);
+                //if (hasSlowTime) Enemy.GetComponent<EnemyBehavior>().setStatus(EnemyStatus.slowTimed);
             }
         }
     }

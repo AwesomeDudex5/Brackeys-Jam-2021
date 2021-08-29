@@ -40,11 +40,32 @@ public class SpellManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Alpha1)) ActivateSpell(spellPrefabs[0]);
-        if (Input.GetKeyUp(KeyCode.Alpha2)) ActivateSpell(spellPrefabs[1]);
-        if (Input.GetKeyUp(KeyCode.Alpha3)) ActivateSpell(spellPrefabs[2]);
-        if (Input.GetKeyUp(KeyCode.Alpha4)) ActivateSpell(spellPrefabs[3]);
-        if (Input.GetKeyUp(KeyCode.Alpha5)) ActivateSpell(spellPrefabs[4]);
+        if (Input.GetKeyUp(KeyCode.Alpha1))
+        {
+            ActivateSpell(spellPrefabs[0]);
+            GameManager.current.SpellActivated(0, 30);
+            GameManager.current.SlowTimeCast();
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha2))
+        {
+            ActivateSpell(spellPrefabs[1]);
+            GameManager.current.SpellActivated(1, 20);
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha3))
+        {
+            ActivateSpell(spellPrefabs[2]);
+            GameManager.current.SpellActivated(2, 35);
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha4))
+        {
+            ActivateSpell(spellPrefabs[3]);
+            GameManager.current.SpellActivated(3, 15);
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha5))
+        {
+            ActivateSpell(spellPrefabs[4]);
+            GameManager.current.SpellActivated(0, 45);
+        }
     }
 
     public void ActivateSpell(GameObject targetSpell)

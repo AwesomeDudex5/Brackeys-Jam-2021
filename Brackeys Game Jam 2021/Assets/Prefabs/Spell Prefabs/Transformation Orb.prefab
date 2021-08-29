@@ -109,20 +109,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ecb1b22d632fd74497e31489705a6d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isProjectile: 1
   target: {x: 0, y: 0, z: 0}
   speed: 5
   hasBurn: 0
   hasWet: 0
   hasPoison: 0
+  hasGust: 0
+  hasBlackhole: 0
   hasFreeze: 0
-  hasStaggered: 1
-  Transforms: 0
+  hasStaggered: 0
+  Transforms: 1
   damage: 5
   timeSlow: 0
-  slowdownTimer: 0
   hasAreaOfEffect: 1
-  areaOfEffectRadius: 7
+  areaOfEffectRadius: 3
 --- !u!1 &5676243221677990047
 GameObject:
   m_ObjectHideFlags: 0

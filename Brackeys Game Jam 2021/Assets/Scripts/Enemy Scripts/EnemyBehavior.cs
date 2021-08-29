@@ -65,6 +65,7 @@ public class EnemyBehavior : MonoBehaviour
         }
 
         GameManager.current.onPlayerDied += victoryDance;
+        GameManager.current.onSlowTimeCast += slowDownTime;
 
        // setStatus(status);
 
@@ -200,6 +201,7 @@ public class EnemyBehavior : MonoBehaviour
 
     public void setStatus(EnemyStatus infliction)
     {
+        StopAllCoroutines();
         isHunting = false;
         status = infliction;
         parseStatus(status);
@@ -209,6 +211,7 @@ public class EnemyBehavior : MonoBehaviour
 
     public void resetStatus()
     {
+        this.GetComponent<NavMeshAgent>().enabled = true;
         isHunting = true;
         agent.speed = movementSpeed;
         status = EnemyStatus.none;
@@ -267,15 +270,16 @@ public class EnemyBehavior : MonoBehaviour
     {
         // Debug.Log("Is Burning");
         int timer = 0;
-        agent.speed *= 1.5f;
+     //   agent.speed *= 1.5f;
         flameParticles.SetActive(true);
+        this.GetComponent<NavMeshAgent>().enabled = false;
         while (timer < burnDuration)
         {
             health--;
             timer++;
             // Debug.Log("Timer: " + timer);
-            Vector3 newPos = RandomNavSphere(transform.position, burnRange, -1);
-            agent.SetDestination(newPos);
+            //Vector3 newPos = RandomNavSphere(transform.position, burnRange, -1);
+          //  agent.SetDestination(newPos);
             yield return new WaitForSeconds(1f);
         }
 
@@ -299,11 +303,12 @@ public class EnemyBehavior : MonoBehaviour
     {
         int timer = 0;
         agent.speed *= 0.5f;
+        this.GetComponent<NavMeshAgent>().enabled = false;
         while (timer < poisonDuration)
         {
             health--;
             timer++;
-            chasePlayer(playerTransform);
+           // chasePlayer(playerTransform);
             yield return new WaitForSeconds(1f);
         }
         resetStatus();
@@ -313,6 +318,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         int timer = 0;
         agent.speed = 0;
+        this.GetComponent<NavMeshAgent>().enabled = false;
         while (timer < staggeredDuration)
         {
             timer++;
@@ -332,8 +338,8 @@ public class EnemyBehavior : MonoBehaviour
 
     IEnumerator suckTowardsPoint()
     {
-        agent.speed = 0;
-
+        //  agent.speed = 0;
+        this.GetComponent<NavMeshAgent>().enabled = false;
         //look at point
         Vector3 relativePos = spellCollisionPoint - transform.position;
 
@@ -349,8 +355,8 @@ public class EnemyBehavior : MonoBehaviour
 
     IEnumerator blowAwayFromPoint()
     {
-        agent.speed = 0;
-
+        // agent.speed = 0;
+        this.GetComponent<NavMeshAgent>().enabled = false;
         //look at point
         Vector3 relativePos = spellCollisionPoint - transform.position;
         relativePos = -relativePos;
@@ -365,6 +371,11 @@ public class EnemyBehavior : MonoBehaviour
         resetStatus();
     }
 
+
+    void slowDownTime()
+    {
+        StartCoroutine(slowedByTime());
+    }
 
     IEnumerator slowedByTime()
     {

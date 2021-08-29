@@ -110,6 +110,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public Action onSlowTimeCast;
+    public void SlowTimeCast()
+    {
+        if(onSlowTimeCast != null)
+        {
+            onSlowTimeCast();
+        }
+    }
+
     #endregion
 
 }
