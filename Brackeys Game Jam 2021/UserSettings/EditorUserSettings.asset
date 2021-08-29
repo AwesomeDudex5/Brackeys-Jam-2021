@@ -5,31 +5,6 @@ EditorUserSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 4
   m_ConfigSettings:
-    RecentlyUsedScenePath-0:
-      value: 22424703114646680e0b0227036c6c111b07142f1f2b233e2867083debf42d
-      flags: 0
-    RecentlyUsedScenePath-1:
-      value: 200b1b3316501b48420203351422103419140d2729263223621c133af6f91231eee225a6ca237f0c2b07ec350b2b127fc6180c0ae51e180e5e2fee1d14eb035c22c61dcb1fdb5030ce0f19c28d4c9ff6dbdfc0f3
-      flags: 0
-    RecentlyUsedScenePath-2:
-      value: 22424703114646680e0b0227036c7e0202231d39381b2535232c5326ece92021
-      flags: 0
-    RecentlyUsedScenePath-3:
-      value: 22424703114646680e0b0227036c731f011b112f386815332827187df7ee3d2cfb
-      flags: 0
-    RecentlyUsedScenePath-4:
-      value: 22424703114646680e0b0227036c731f011b112f386815332827187df7ee3d2cfb
-      flags: 0
-    RecentlyUsedScenePath-5:
-<<<<<<< HEAD
-      value: 22424703114646680e0b0227036c7e091212166a1f2b233e2867083debf42d
-=======
-      value: 22424703114646680e0b0227036c72111f1958072926337e38271427fb
-      flags: 0
-    RecentlyUsedScenePath-6:
-      value: 22424703114646680e0b0227036c7e02131919192f2d2835633c133af6f9
->>>>>>> Lowliet-Temp-Branch
-      flags: 0
     vcSharedLogLevel:
       value: 0d5e400f0650
       flags: 0

@@ -62,8 +62,7 @@ public class SpellManager : MonoBehaviour
 
     public void Update()
     {
-        
-    }
+     }
 
     public void ActivateSpell(Spell targetSpell, Vector3 targetLocation)
     {

@@ -25,6 +25,13 @@ public class AudioManager : MonoBehaviour
             s.source.volume = s.volume;
         }
 
+        foreach(Sounds s in backgroundMusic)
+        {
+            s.source = this.gameObject.AddComponent<AudioSource>();
+            s.source.clip = s.clip;
+            s.source.volume = s.volume;
+        }
+
     }
 
     // Start is called before the first frame update
@@ -37,19 +44,40 @@ public class AudioManager : MonoBehaviour
 
     public void playMusic(string name)
     {
-        Sounds s = Array.Find(backgroundMusic, sound => sound.name == name);
-        if (s == null)
-            return;
+        //Sounds s = Array.Find(backgroundMusic, sound => sound.name == name);
+        // if (s == null)
+        //    return;
         // s.source.Play();
-        _audiosource.clip = s.clip;
-        _audiosource.volume = s.volume;
-        _audiosource.loop = true;
-        _audiosource.Play();
+        // _audiosource.clip = s.source.clip;
+        // _audiosource.volume = s.source.volume;
+
+        /*  foreach(Sounds s in backgroundMusic)
+          {
+              if(s.name == name)
+              {
+                  _audiosource.clip = s.clip;
+                  _audiosource.volume = s.volume;
+              }
+          }
+
+          _audiosource.loop = true;
+          _audiosource.Play();
+          */
+
+        Sounds s = Array.Find(backgroundMusic, sound => sound.name == name);
+         if (s == null)
+            return;
+        s.source.loop = true;
+         s.source.Play();
     }
 
     void stopMusic()
     {
-        _audiosource.Pause();
+        //_audiosource.Pause();
+        foreach(Sounds s in backgroundMusic)
+        {
+            s.source.Pause();
+        }
     }
 
     public void playSound(string name)
