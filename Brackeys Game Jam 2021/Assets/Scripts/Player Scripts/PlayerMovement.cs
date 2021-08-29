@@ -12,6 +12,7 @@ public class PlayerMovement : DirectPlayerAnimationControl
 
     [SerializeField]
     private bool rotateTowardMouse;
+    private bool canMove = true;
 
     /*  Will have to play around with these values  */
     [Header("Camera Stats")]
@@ -34,29 +35,26 @@ public class PlayerMovement : DirectPlayerAnimationControl
     void Start()
     {
         cam = Camera.main;
-         cam.transform.eulerAngles = new Vector3(cameraRotation, 0f, 0f);
+        cam.transform.eulerAngles = new Vector3(cameraRotation, 0f, 0f);
+        GameManager.current.onPlayerDied += StopAndDie;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (canMove == true)
+        {
+            InputVector.x = Input.GetAxisRaw("Horizontal");
+            InputVector.y = Input.GetAxisRaw("Vertical");
 
-        InputVector.x = Input.GetAxisRaw("Horizontal");
-        InputVector.y = Input.GetAxisRaw("Vertical");
+            controller.SetFloat(X_LABEL, InputVector.x);
+            controller.SetFloat(Y_LABEL, InputVector.y);
 
-        controller.SetFloat(X_LABEL, InputVector.x);
-        controller.SetFloat(Y_LABEL, InputVector.y);
+        }
 
         MousePosition = Input.mousePosition;
 
-        if (InputVector.x > 0 || InputVector.y > 0)
-        {
-           // anim.SetFloat("speed", 1);
-        }
-        else
-        {
-           // anim.SetFloat("speed", 0);
-        }
+
 
     }
 
@@ -73,7 +71,7 @@ public class PlayerMovement : DirectPlayerAnimationControl
         }
         if (rotateTowardMouse)
         {
-           RotateFromMouseVector();
+            RotateFromMouseVector();
         }
 
     }
@@ -96,11 +94,11 @@ public class PlayerMovement : DirectPlayerAnimationControl
 
             transform.LookAt(target);
 
-           /* var lookPos = target - transform.position;
-            lookPos.y =transform.position.y;
-            var rotation = Quaternion.LookRotation(lookPos);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-            */
+            /* var lookPos = target - transform.position;
+             lookPos.y =transform.position.y;
+             var rotation = Quaternion.LookRotation(lookPos);
+             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+             */
 
         }
     }
@@ -122,5 +120,19 @@ public class PlayerMovement : DirectPlayerAnimationControl
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(movementDirection), rotationSpeed);
     }
 
+    public void StopAndDie()
+    {
+        AudioManager.instance.playSound("Player Got Hit");
+        GameManager.current.onPlayerDied -= StopAndDie;
+        StartCoroutine(playStopAndDie());
+    }
+
+    IEnumerator playStopAndDie()
+    {
+        canMove = false;
+        controller.SetTrigger("Death");
+        yield return new WaitForSeconds(3.5f);
+        Destroy(this.gameObject);
+    }
 
 }
