@@ -42,7 +42,10 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] private float frozenDuration;
     [SerializeField] private float poisonDuration;
     [SerializeField] private float wetDuration;
+    [SerializeField] private float slowedDownTimeDuration;
+    public float forceAmount;
     public GameObject[] animalTransformations;
+    private Vector3 spellCollisionPoint;
 
 
     // Start is called before the first frame update
@@ -82,7 +85,7 @@ public class EnemyBehavior : MonoBehaviour
             }
         }
 
-        if(playerTransform == null)
+        if (playerTransform == null)
         {
             this.gameObject.GetComponent<NavMeshAgent>().enabled = false;
         }
@@ -109,6 +112,11 @@ public class EnemyBehavior : MonoBehaviour
         if (other.tag == "Player")
         {
             attackTarget = null;
+        }
+
+        if (other.tag == "Spell")
+        {
+            spellCollisionPoint = other.transform.position;
         }
     }
 
@@ -222,6 +230,12 @@ public class EnemyBehavior : MonoBehaviour
                 break;
             case EnemyStatus.wet: //do stuff
                 break;
+            case EnemyStatus.blackholed:
+                StartCoroutine(suckTowardsPoint());
+                break;
+            case EnemyStatus.gusted:
+                StartCoroutine(blowAwayFromPoint());
+                break;
             default:
                 Debug.Log("No Status Applied");
                 break;
@@ -230,6 +244,7 @@ public class EnemyBehavior : MonoBehaviour
 
     IEnumerator burning()
     {
+        Debug.Log("Is Burning");
         int timer = 0;
         agent.speed *= 1.5f;
         while (timer < burnDuration)
@@ -287,6 +302,55 @@ public class EnemyBehavior : MonoBehaviour
         Instantiate(animalTransformations[randIndex], this.transform.position, Quaternion.identity);
         GameManager.current.EnemyKilled();
         Destroy(this.gameObject);
+    }
+
+    IEnumerator suckTowardsPoint()
+    {
+        agent.speed = 0;
+
+        //look at point
+        Vector3 relativePos = spellCollisionPoint - transform.position;
+
+        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.forward);
+        transform.rotation = rotation;
+
+        //add force to rigidbody towards direction
+        this.GetComponent<Rigidbody>().AddForce(relativePos * forceAmount, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(0.5f);
+        resetStatus();
+    }
+
+    IEnumerator blowAwayFromPoint()
+    {
+        agent.speed = 0;
+
+        //look at point
+        Vector3 relativePos = spellCollisionPoint - transform.position;
+        relativePos = -relativePos;
+
+        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.forward);
+        transform.rotation = rotation;
+
+        //add force to rigidbody towards direction
+        this.GetComponent<Rigidbody>().AddForce(relativePos * forceAmount, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(0.5f);
+        resetStatus();
+    }
+
+
+    IEnumerator slowedByTime()
+    {
+        agent.speed = agent.speed * 0.35f;
+        int timer = 0;
+        while (timer < slowedDownTimeDuration)
+        {
+            timer++;
+            yield return new WaitForSeconds(1f);
+        }
+        resetStatus();
+
     }
 
 }

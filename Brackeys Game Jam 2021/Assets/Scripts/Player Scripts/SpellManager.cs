@@ -41,24 +41,28 @@ public class SpellManager : MonoBehaviour
 {
 
     public GameObject[] spellPrefabs;
-    public Spell[] spellList;
+      public Spell[] spellList;
+   // public List<Spell> spellList;
     public int SpellMagnitude;
     //test spell
     public void Start()
     {
-        /* 
+        /*
            Slow Time = 0
            Fireball = 1
            Black Hole = 2
            Gust = 3
            Transformation = 4 
         */
+        //spellList = new List<Spell>();
 
-        spellList = new Spell[] { new Spell(spellPrefabs[0], 15),
-                                    new Spell(spellPrefabs[1], 15),
-                                    new Spell(spellPrefabs[2], 15),
-                                    new Spell(spellPrefabs[3], 15),
-                                    new Spell(spellPrefabs[4], 15)};
+         spellList = new Spell[] { new Spell(spellPrefabs[0], 15),
+                                     new Spell(spellPrefabs[1], 15),
+                                     new Spell(spellPrefabs[2], 15),
+                                     new Spell(spellPrefabs[3], 15),
+                                     new Spell(spellPrefabs[4], 15)};
+                                     
+        //spellList.Add(new Spell(spellPrefabs[0], 15));
     }
 
     public void Update()

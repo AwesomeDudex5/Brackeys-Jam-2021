@@ -4,5 +4,5 @@ using UnityEngine;
 
 public enum EnemyStatus
 {
-    burn, staggered, poison, frozen, wet, transformed, none
+    burn, staggered, poison, frozen, wet, transformed, gusted, blackholed, slowTimed, none
 }

@@ -25,7 +25,7 @@ public class WaveManager : MonoBehaviour
         canSpawn = true;
         GameManager.current.onEnemyKilled += updateCurrentAmountKilled;
         GameManager.current.WaveSpawned(currentWave, totalToKillPerWave);
-
+        AudioManager.instance.playMusic("Battle Theme");
         AudioManager.instance.playSound("Crowd Noise");
     }
 

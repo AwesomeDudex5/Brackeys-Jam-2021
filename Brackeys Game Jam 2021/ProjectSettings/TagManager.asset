@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Food
   - Spiked
+  - Spell
   layers:
   - Default
   - TransparentFX
